@@ -27,8 +27,27 @@ class NeuralNetwork:
 
 		return self.A2
 	
+	# Implementation of backpropogation using Stochastic Gradient Descent
 	def backward_propogation(self, x_train, y_train):
 		length: int = x_train.shape[0]		# 60000
 
 		dZ2 = self.A2 - y_train
-		
+		self.dW2 = (self.A1.T.dot(dZ2)) / length
+		self.db2 = (np.sum(dZ2, axis=0)) / length
+
+		dA1 = dZ2.dot(self.W2.T)
+		dZ1 = dA1 * self.A1 * (1 - self.A1)
+		self.dW1 = (x_train.T.dot(dZ1)) / length
+		self.db1 = (np.sum(dZ1, axis=0)) / length
+
+	# Updating the weights and biases
+	def update_parameters(self, learning_rate: float):
+		self.W1 -= learning_rate * self.dW1
+		self.b1 -= learning_rate * self.db1
+		self.W2 -= learning_rate * self.dW2
+		self.b2 -= learning_rate * self.db2
+
+	# Make the predictions for the training data
+	def predict(self, x_train):
+		A2 = self.forward_propogation(x_train)
+		return np.argmax(A2, axis=1)
