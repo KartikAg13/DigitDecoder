@@ -1,1 +1,1 @@
-from .mlp import build_model
+from .mlp import NeuralNetwork

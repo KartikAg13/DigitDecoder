@@ -1,1 +1,1 @@
-from .trainer import train_model
+from .trainer import train_model, loss_function
