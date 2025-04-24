@@ -31,5 +31,8 @@ def main():
 	test_accuracy: float = evaluate_model(model, x_test, y_test)
 	print(f"Test Accuracy: {test_accuracy * 100:.2f}%")
 
+	number_of_samples: int = 10
+	plot_predictions(model, x_test, y_test, number_of_samples)
+
 if __name__ == "__main__":
 	main()
