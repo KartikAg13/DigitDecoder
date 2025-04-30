@@ -7,8 +7,11 @@ class NeuralNetwork:
 		self.W2: np.ndarray = np.random.randn(hidden_size, output_size) * 0.01
 		self.b2: np.ndarray = np.zeros(output_size)
 
-	def sigmoid(self, z: np.ndarray) -> np.ndarray:
-		return 1 / (1 + np.exp(-z))
+	def relu(self, z: np.ndarray) -> np.ndarray:
+		return np.maximum(0, z)
+
+	def relu_derivative(self, z: np.ndarray) -> np.ndarray:
+		return (z > 0).astype(float)
 
 	def softmax(self, z: np.ndarray) -> np.ndarray:
 		exp_z: np.ndarray = np.exp(z - np.max(z, axis=1, keepdims=True))
@@ -16,7 +19,7 @@ class NeuralNetwork:
 
 	def forward_propagation(self, x_train: np.ndarray) -> np.ndarray:
 		self.Z1: np.ndarray = x_train.dot(self.W1) + self.b1
-		self.A1: np.ndarray = self.sigmoid(self.Z1)
+		self.A1: np.ndarray = self.relu(self.Z1)
 		self.Z2: np.ndarray = self.A1.dot(self.W2) + self.b2
 		self.A2: np.ndarray = self.softmax(self.Z2)
 		return self.A2
@@ -27,7 +30,7 @@ class NeuralNetwork:
 		self.dW2: np.ndarray = (self.A1.T.dot(dZ2)) / length
 		self.db2: np.ndarray = (np.sum(dZ2, axis=0)) / length
 		dA1: np.ndarray = dZ2.dot(self.W2.T)
-		dZ1: np.ndarray = dA1 * self.A1 * (1 - self.A1)
+		dZ1: np.ndarray = dA1 * self.relu_derivative(self.Z1)
 		self.dW1: np.ndarray = (x_train.T.dot(dZ1)) / length
 		self.db1: np.ndarray = (np.sum(dZ1, axis=0)) / length
 

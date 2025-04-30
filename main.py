@@ -22,8 +22,9 @@ def main():
 
 	# Train the model
 	epochs: int = 1000
-	learning_rate: float = 0.01
-	train_model(model, epochs, learning_rate, x_train, y_train)
+	learning_rate: float = 0.1
+	batch_size: int = 32
+	train_model(model, epochs, learning_rate, x_train, y_train, batch_size, train_shape[0])
 
 	train_accuracy: float = evaluate_model(model, x_train, y_train)
 	print(f"Training Accuracy: {train_accuracy * 100:.2f}%")
@@ -33,6 +34,8 @@ def main():
 
 	number_of_samples: int = 10
 	plot_predictions(model, x_test, y_test, number_of_samples)
+
+	print(f"W1: {model.W1}, b1: {model.b1}, W2: {model.W2}, b2: {model.b2}")
 
 if __name__ == "__main__":
 	main()
