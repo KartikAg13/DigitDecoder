@@ -24,7 +24,8 @@ def main():
 	epochs: int = 1000
 	learning_rate: float = 0.1
 	batch_size: int = 32
-	train_model(model, epochs, learning_rate, x_train, y_train, batch_size, train_shape[0])
+	epsilon: float = 1e-4
+	train_model(model, epochs, learning_rate, x_train, y_train, batch_size, train_shape[0], epsilon)
 
 	train_accuracy: float = evaluate_model(model, x_train, y_train)
 	print(f"Training Accuracy: {train_accuracy * 100:.2f}%")

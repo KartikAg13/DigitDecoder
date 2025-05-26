@@ -4,7 +4,9 @@ import numpy as np
 def loss_function(y_onehot: np.ndarray, A2: np.ndarray) -> float:
 	return -np.mean(np.sum(y_onehot * np.log(A2 + 1e-10), axis=1))
 
-def train_model(model: NeuralNetwork, epochs: int, learning_rate: float, x_train: np.ndarray, y_train: np.ndarray, batch_size: int, number_of_samples: int):
+def train_model(model: NeuralNetwork, epochs: int, learning_rate: float, 
+				x_train: np.ndarray, y_train: np.ndarray, batch_size: int, 
+				number_of_samples: int, epsilon: float):
 	y_onehot: np.ndarray = np.eye(10)[y_train]
 	
 	for epoch in range(epochs):
@@ -24,6 +26,11 @@ def train_model(model: NeuralNetwork, epochs: int, learning_rate: float, x_train
 		
 		# Compute and print loss on the full dataset
 		A2_full: np.ndarray = model.forward_propagation(x_train)
-		loss: float = loss_function(y_onehot, A2_full)
+		# loss: float = loss_function(y_onehot, A2_full)
+		current_loss: float = loss_function(y_onehot, A2_full)
+		if current_loss > epsilon:
+			loss = current_loss
+		else:
+			break
 		if epoch % 50 == 0:
 			print(f"Epoch: {epoch}, Loss: {loss}")
