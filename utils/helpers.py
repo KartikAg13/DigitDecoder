@@ -12,4 +12,5 @@ def plot_predictions(model: NeuralNetwork, x_test: np.ndarray, y_test: np.ndarra
 		axis.imshow(x_test_images[i], cmap='gray')
 		axis.set_title(f"Predicted: {predictions[i]}\nTrue: {y_test[i]}")
 		axis.axis('off')
-	plt.show()
+	plt.savefig("predictions.png", bbox_inches='tight')
+	plt.close()

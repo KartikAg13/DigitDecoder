@@ -1,3 +1,5 @@
+import numpy as np
+
 from data.mnist_loader import load_mnist
 from evaluate.evaluator import evaluate_model
 from model.mlp import NeuralNetwork
@@ -36,7 +38,12 @@ def main():
 	number_of_samples: int = 10
 	plot_predictions(model, x_test, y_test, number_of_samples)
 
-	print(f"W1: {model.W1}, b1: {model.b1}, W2: {model.W2}, b2: {model.b2}")
+	# Save the weights and biases
+	np.save('weights/W1.npy', model.W1)
+	np.save('weights/b1.npy', model.b1)
+	np.save('weights/W2.npy', model.W2)
+	np.save('weights/b2.npy', model.b2)
+	print("Weights and biases saved to .npy files.")
 
 if __name__ == "__main__":
 	main()

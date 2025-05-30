@@ -2,5 +2,5 @@
 	"typeCheckingMode": "basic",
 	"reportMissingImports": false,
 	"extraPaths": ["/home/kartikag234/.local/lib/python3.12/site-packages"]
-  }
+}
   
