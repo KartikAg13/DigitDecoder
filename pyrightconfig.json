@@ -1,6 +1,6 @@
 {
 	"typeCheckingMode": "basic",
 	"reportMissingImports": false,
-	"extraPaths": ["/home/kartikag234/.local/lib/python3.12/site-packages"]
+	"extraPaths": ["/home/kartikag234/.local/lib/python3.12/site-packages"],
+	"packageIndexDepths": [{"name": "tensorflow", "depth": 4, "includeAllSymbols": true}]
 }
-  
